@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Journey 🎉</title>
+  <style>
+    :root {
+      --primary: #FCAF9D;
+      --secondary: #FFD6C9;
+      --accent: #FFB3A2;
+      --dark: #5A3E36;
+      --light: #fff8f5;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--secondary), var(--light));
+      color: var(--dark);
+      text-align: center;
+      overflow-x: hidden;
+    }
+    .container {
+      display: none;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    .active {
+      display: block;
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+    button {
+      background: var(--primary);
+      border: none;
+      border-radius: 12px;
+      padding: 0.8rem 1.6rem;
+      margin: 1rem 0.5rem 0;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    button:hover { 
+      background: var(--accent); 
+      transform: scale(1.05);
+    }
+    .gallery-item {
+      margin-bottom: 2.5rem;
+    }
+    .gallery-item img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .gallery-item p {
+      margin-top: 0.8rem;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--dark);
+    }
+    .countdown {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      color: var(--primary);
+    }
+    .hidden { display: none; }
+    .feedback {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    h1, h2, h3 {
+      color: var(--dark);
+    }
+    .side-by-side {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .side-by-side img {
+      width: 48%;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .progress-bar {
+      width: 100%;
+      height: 18px;
+      background: var(--secondary);
+      border-radius: 10px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Countdown Section -->
+  <div id="countdownPage" class="container active">
+    <div class="card">
+      <h1>⏳ Countdown to Your Special Day</h1>
+      <p id="countdown" class="countdown"></p>
+      <button onclick="nextPage()">Start Journey 🎉</button>
+    </div>
+  </div>
+
+  <!-- Quiz Section -->
+  <div id="quizPage" class="container">
+    <div class="card">
+      <h2>💖 Birthday Quiz</h2>
+      <div class="progress-bar"><div id="quizProgress" class="progress"></div></div>
+      <div id="quiz"></div>
+      <div id="quizFeedback" class="feedback"></div>
+    </div>
+    <button onclick="prevPage()">⬅️ Back</button>
+    <button id="quizNext" class="hidden" onclick="nextPage()">Next ➡️</button>
+  </div>
+
+  <!-- Gallery Section -->
+  <div id="galleryPage" class="container">
+    <div class="card">
+      <h2>📸 Our Memories</h2>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="https://placekitten.com/400/300" alt="Memory 1">
+          <p>That time we laughed until we cried 😍</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://placekitten.com/401/300" alt="Memory 2">
+          <p>Our first trip together 🌍</p>
+        </div>
+      </div>
+    </div>
+    <button onclick="prevPage()">⬅️ Back</button>
+    <button onclick="nextPage()">Next ➡️</button>
+  </div>
+
+  <!-- Message Section -->
+  <div id="messagePage" class="container">
+    <div class="card">
+      <div class="side-by-side">
+        <img src="https://placekitten.com/600/300" alt="Us Together">
+        <img src="https://placekitten.com/601/300" alt="Another Memory">
+      </div>
+      <h2>💌 A Note Just for You</h2>
+      <p>Happy Birthday my love, you make every moment special. Here’s to many more adventures together ❤️</p>
+      <!-- SoundCloud Embed -->
+      <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kolyakito/cant-take-my-eyes-off-you&color=%23fcaf9d&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+      </iframe>
+    </div>
+    <button onclick="prevPage()">⬅️ Back</button>
+    <button onclick="askOut()">Special Surprise 💕</button>
+  </div>
+
+  <!-- Ask Out Section -->
+  <div id="askOutPage" class="container">
+    <div class="card">
+      <h2>🌹 Will You Go Out With Me on 17/10?</h2>
+      <p>I want to make that day just as special as you are 💖</p>
+    </div>
+    <button onclick="prevPage()">⬅️ Back</button>
+    <button onclick="celebrate()">Celebrate 🎊</button>
+  </div>
+
+  <canvas id="confettiCanvas" class="hidden"></canvas>
+
+  <script>
+    let currentPage = 0;
+    const pages = ["countdownPage", "quizPage", "galleryPage", "messagePage", "askOutPage"];
+
+    function showPage(index) {
+      pages.forEach((id, i) => {
+        document.getElementById(id).classList.toggle("active", i === index);
+      });
+    }
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        showPage(currentPage);
+      }
+    }
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    }
+    function askOut() {
+      currentPage = 4;
+      showPage(currentPage);
+    }
+
+    // Countdown
+    const countdownEl = document.getElementById("countdown");
+    const targetDate = new Date("2025-09-25T00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      if (distance < 0) {
+        countdownEl.innerHTML = "🎉 It's the day!";
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+
+    // Quiz
+    const quizData = [
+      { q: "Where did we first meet?", a: ["School", "Cafe", "Library"], correct: 1 },
+      { q: "What’s my favorite color?", a: ["Blue", "Red", "Pink"], correct: 2 },
+      { q: "Which trip was our favorite?", a: ["Beach", "Mountains", "City"], correct: 0 }
+    ];
+    const quizContainer = document.getElementById("quiz");
+    const quizFeedback = document.getElementById("quizFeedback");
+    const quizProgress = document.getElementById("quizProgress");
+    let currentQuestion = 0;
+
+    function loadQuestion(index) {
+      quizContainer.innerHTML = "";
+      quizFeedback.textContent = "";
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<h3>${quizData[index].q}</h3>`;
+      quizData[index].a.forEach((ans, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.onclick = () => checkAnswer(index, i);
+        card.appendChild(btn);
+      });
+      quizContainer.appendChild(card);
+      quizProgress.style.width = ((index)/quizData.length)*100 + "%";
+    }
+
+    function checkAnswer(qIndex, ansIndex) {
+      if (ansIndex === quizData[qIndex].correct) {
+        quizFeedback.textContent = "✅ Correct! You remembered 🎉";
+        quizFeedback.style.color = "green";
+        currentQuestion++;
+        quizProgress.style.width = ((currentQuestion)/quizData.length)*100 + "%";
+        if (currentQuestion < quizData.length) {
+          setTimeout(() => loadQuestion(currentQuestion), 1200);
+        } else {
+          document.getElementById("quizNext").classList.remove("hidden");
+        }
+      } else {
+        quizFeedback.textContent = "❌ Oops! Try again 💡";
+        quizFeedback.style.color = "red";
+      }
+    }
+    loadQuestion(currentQuestion);
+
+    // Confetti celebrate
+    function celebrate() {
+      const canvas = document.getElementById("confettiCanvas");
+      canvas.classList.remove("hidden");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const confetti = [];
+      for (let i = 0; i < 300; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 20 + 10,
+          color: `hsl(${Math.random() * 360}, 70%, 60%)`
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confetti.forEach(c => {
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, c.r, 0, 2 * Math.PI);
+          ctx.fillStyle = c.color;
+          ctx.fill();
+        });
+        update();
+        requestAnimationFrame(draw);
+      }
+
+      function update() {
+        confetti.forEach(c => {
+          c.y += c.d * 0.05;
+          if (c.y > canvas.height) c.y = -10;
+        });
+      }
+      draw();
+    }
+  </script>
+</body>
+</html>
